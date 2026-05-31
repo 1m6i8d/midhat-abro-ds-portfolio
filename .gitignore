@@ -6,8 +6,8 @@ __pycache__/
 venv/
 .venv/
 
-# Jupyter
-.ipynb_checkpoints/
+# PyCharm
+.idea/
 
 # Data
 data/raw/
