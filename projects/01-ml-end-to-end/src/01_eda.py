@@ -1,6 +1,8 @@
+import os
 import requests
 import pandas as pd
-import os
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 CITIES = {
     "Hyderabad": {"latitude": 25.37, "longitude": 68.37},
@@ -49,6 +51,75 @@ def main():
     print(f"\nSaved {len(combined)} rows to {RAW_DATA_PATH}")
     print(combined.head(10))
 
+    run_eda(combined)
+
+def run_eda(df: pd.DataFrame):
+    """Generate exploratory plots for the combined AQI dataframe."""
+    os.makedirs("assets/demo-screenshots", exist_ok=True)
+    sns.set_style("whitegrid")
+
+    # Plot 1, PM2.5 over time per city
+    fig, axes = plt.subplots(3, 1, figsize=(14, 10), sharex=True)
+    for ax, city in zip(axes, CITIES.keys()):
+        city_df = df[df["city"] == city]
+        ax.plot(city_df["datetime"], city_df["pm25"]) #, linewidth=0.6
+        ax.set_title(f"{city}: Hourly PM2.5") #(2024)
+        ax.set_ylabel("PM2.5 (µg/m³)")
+    axes[-1].set_xlabel("Date")
+    plt.tight_layout()
+    plt.savefig("assets/demo-screenshots/01_timeseries.png", dpi=150)
+    plt.close()
+    print("Saved: 01_timeseries.png")
+
+    # Plot 2, monthly average pm2.5 per city
+    df["month"] = df["datetime"].dt.month
+    monthly = df.groupby(["city", "month"])["pm25"].mean().reset_index()
+    plt.figure(figsize=(12, 5))
+    sns.lineplot(data=monthly, x="month", y="pm25", hue="city", marker="o")
+    plt.title("Monthly Average PM2.5 by City (2024)")
+    plt.xlabel("Month")
+    plt.ylabel("Avg PM2.5 (µg/m³)")
+    plt.xticks(range(1, 13), ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                              "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"])
+    plt.tight_layout()
+    plt.savefig("assets/demo-screenshots/02_monthly_avg.png", dpi=150)
+    plt.close()
+    print("Saved: 02_monthly_avg.png")
+
+    # Plot 3, pm2.5 distribution per city
+    plt.figure(figsize=(10, 5))
+    sns.boxplot(data=df, x="city", y="pm25")
+    plt.title("PM2.5 Distribution by City (2024)")
+    plt.ylabel("PM2.5 (µg/m³)")
+    plt.tight_layout()
+    plt.savefig("assets/demo-screenshots/03_boxplot.png", dpi=150)
+    plt.close()
+    print("Saved: 03_boxplot.png")
+
+    # Plot 4, avg pm2.5 by hour of day
+    df["hour"] = df["datetime"].dt.hour
+    hourly = df.groupby(["city", "hour"])["pm25"].mean().reset_index()
+    plt.figure(figsize=(12, 5))
+    sns.lineplot(data=hourly, x="hour", y="pm25", hue="city", marker="o")
+    plt.title("Average PM2.5 by Hour of Day (2024)")
+    plt.xlabel("Hour of Day")
+    plt.ylabel("Avg PM2.5 (µg/m³)")
+    plt.xticks(range(0, 24))
+    plt.tight_layout()
+    plt.savefig("assets/demo-screenshots/04_hourly_pattern.png", dpi=150)
+    plt.close()
+    print("Saved: 04_hourly_pattern.png")
+
+    print("\nEDA complete.")
+
+    # EDA Findings
+    # 1. Lahore is significantly more polluted than Karachi and Hyderabad year-round,
+    # Main reasons are it's inland geography and industries.
+    # 2. Pollution spiked after October and settled around after February,
+    # This period is the "smog season", where temperature inversions trap pollutants
+    # 3. A secondary small spike in July is likely due to monsoon and dust-storms.
+    # 4. Lahore shows a strong diurnal daily cycle where pollution is high at night and low in afternoon,
+    #    Karachi and Hyderabad are nearly flat all day as sea breezes ventilate constantly
 
 if __name__ == "__main__":
     main()
