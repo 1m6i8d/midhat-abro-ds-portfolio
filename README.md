@@ -21,7 +21,7 @@ I'm interested in applied ML, NLP for low-resource languages, and data-driven st
 
 **Stack:** Python, Pandas, Scikit-learn
 
-**Dataset:** IQAir or OpenAQ (*TBD*)
+**Dataset:** Open-Meteo
 
 **Results:** ...
 
