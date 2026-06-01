@@ -12,7 +12,7 @@ CITIES = {
 RAW_DATA_PATH = "data/raw/aqi_pakistan.csv"
 BASE_URL = "https://air-quality-api.open-meteo.com/v1/air-quality"
 START_DATE = "2024-01-01"
-END_DATE   = "2024-12-31"
+END_DATE   = "2026-05-31"
 
 def fetch_aqi_data(city: str, lat: float, lon: float) -> pd.DataFrame:
     """Fetch hourly PM2.5 for Pakistani cities using Open-Meteo"""
@@ -56,14 +56,19 @@ def main():
 def run_eda(df: pd.DataFrame):
     """Generate exploratory plots for the combined AQI dataframe."""
     os.makedirs("assets/demo-screenshots", exist_ok=True)
+
+    start_year = df["datetime"].dt.year.min()
+    end_year = df["datetime"].dt.year.max()
+    date_range = f"{start_year}–{end_year}" if start_year != end_year else str(start_year)
+
     sns.set_style("whitegrid")
 
     # Plot 1, PM2.5 over time per city
     fig, axes = plt.subplots(3, 1, figsize=(14, 10), sharex=True)
     for ax, city in zip(axes, CITIES.keys()):
         city_df = df[df["city"] == city]
-        ax.plot(city_df["datetime"], city_df["pm25"]) #, linewidth=0.6
-        ax.set_title(f"{city}: Hourly PM2.5") #(2024)
+        ax.plot(city_df["datetime"], city_df["pm25"])
+        ax.set_title(f"{city} — Hourly PM2.5 ({date_range})")
         ax.set_ylabel("PM2.5 (µg/m³)")
     axes[-1].set_xlabel("Date")
     plt.tight_layout()
@@ -76,7 +81,7 @@ def run_eda(df: pd.DataFrame):
     monthly = df.groupby(["city", "month"])["pm25"].mean().reset_index()
     plt.figure(figsize=(12, 5))
     sns.lineplot(data=monthly, x="month", y="pm25", hue="city", marker="o")
-    plt.title("Monthly Average PM2.5 by City (2024)")
+    plt.title(f"Monthly Average PM2.5 by City ({date_range})")
     plt.xlabel("Month")
     plt.ylabel("Avg PM2.5 (µg/m³)")
     plt.xticks(range(1, 13), ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -89,7 +94,7 @@ def run_eda(df: pd.DataFrame):
     # Plot 3, pm2.5 distribution per city
     plt.figure(figsize=(10, 5))
     sns.boxplot(data=df, x="city", y="pm25")
-    plt.title("PM2.5 Distribution by City (2024)")
+    plt.title(f"PM2.5 Distribution by City ({date_range})")
     plt.ylabel("PM2.5 (µg/m³)")
     plt.tight_layout()
     plt.savefig("assets/demo-screenshots/03_boxplot.png", dpi=150)
@@ -101,7 +106,7 @@ def run_eda(df: pd.DataFrame):
     hourly = df.groupby(["city", "hour"])["pm25"].mean().reset_index()
     plt.figure(figsize=(12, 5))
     sns.lineplot(data=hourly, x="hour", y="pm25", hue="city", marker="o")
-    plt.title("Average PM2.5 by Hour of Day (2024)")
+    plt.title(f"Average PM2.5 by Hour of Day ({date_range})")
     plt.xlabel("Hour of Day")
     plt.ylabel("Avg PM2.5 (µg/m³)")
     plt.xticks(range(0, 24))
