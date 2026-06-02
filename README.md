@@ -17,15 +17,21 @@ I'm interested in applied ML, NLP for low-resource languages, and data-driven st
 
 ## Projects
 
-### 01 — AQI Forecaster *(End-to-End ML)*
+### 01: AQI Forecaster *(End-to-End ML)*
 
-**Stack:** Python, Pandas, Scikit-learn
+**Stack:** Python, Pandas, Scikit-learn, XGBoost, (Prophet)
 
 **Dataset:** Open-Meteo
 
-**Results:** ...
+**Results:** Successfully trained Open-Meteo data from 2024 onwards on XGBoost and Prophet. Initially only used Prophet which resulted in some setbacks but they have been rectified using XGBoost. I have also created a streamlit app to showcase the results and make it an intercative forecaster.
+
+**Future Directions:** Improve the model to make forecast more precise. It currently captures the basic trend well and is accurate, but can be more precise.
 
 [📁 Project Folder](projects/01-ml-end-to-end/)
+
+### 02: Roman Urdu Sentiment Classifier *(NLP)*
+
+*stack, dataset TBD/TBA*
 
 ---
 
@@ -35,7 +41,7 @@ I'm interested in applied ML, NLP for low-resource languages, and data-driven st
 
 ---
 
-## Skills
+## Skills *(will update intermittently)*
 
 | Category | Tools |
 |---|---|
@@ -49,10 +55,10 @@ I'm interested in applied ML, NLP for low-resource languages, and data-driven st
 
 ## Currently
 
-- Building [AQI Forecast]
-- Learning [...]
+- Building [...]
+- Learning/Familiarizing myself with [Kaggle]
 - Open to **internship** opportunities in Data Science / AI
 
 ---
 
-*Last updated: May 2026*
+*Last updated: June 2026*
