@@ -55,8 +55,8 @@ I'm interested in applied ML, NLP for low-resource languages, and data-driven st
 
 ## Currently
 
-- Building [...]
-- Learning/Familiarizing myself with [Kaggle]
+- Building [Sentiment Classifier for Roman Urdu]
+- Learning/Familiarizing myself with [...]
 - Open to **internship** opportunities in Data Science / AI
 
 ---
