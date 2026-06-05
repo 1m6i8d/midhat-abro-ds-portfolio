@@ -21,7 +21,7 @@ I'm interested in applied ML, NLP for low-resource languages, and data-driven st
 
 **Stack:** Python, Pandas, Scikit-learn, XGBoost, (Prophet)
 
-**Dataset:** Open-Meteo
+**Dataset:** [Open-Meteo](https://open-meteo.com/): Weather data provided by Open-Meteo.com under Attribution 4.0 International (CC BY 4.0).
 
 **Results:** Successfully trained Open-Meteo data from 2024 onwards on XGBoost and Prophet. Initially only used Prophet which resulted in some setbacks but they have been rectified using XGBoost. I have also created a streamlit app to showcase the results and make it an intercative forecaster.
 
