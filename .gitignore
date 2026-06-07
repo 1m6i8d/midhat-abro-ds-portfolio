@@ -24,3 +24,6 @@ models/
 # OS
 .DS_Store
 Thumbs.db
+
+# large model files
+projects/02-nlp-or-cv/models/
