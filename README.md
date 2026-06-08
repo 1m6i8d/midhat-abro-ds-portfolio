@@ -19,7 +19,7 @@ I'm interested in applied ML, NLP for low-resource languages, and data-driven st
 
 ### 01: AQI Forecaster *(End-to-End ML)*
 
-**Stack:** Python, Pandas, Scikit-learn, XGBoost, (Prophet)
+**Stack:** Python, Pandas, Scikit-learn, XGBoost, (Prophet), Streamlit
 
 **Dataset:** [Open-Meteo](https://open-meteo.com/): Weather data provided by Open-Meteo.com under Attribution 4.0 International (CC BY 4.0).
 
@@ -31,7 +31,21 @@ I'm interested in applied ML, NLP for low-resource languages, and data-driven st
 
 ### 02: Roman Urdu Sentiment Classifier *(NLP)*
 
-*stack, dataset TBD/TBA*
+**Stack:** Python, PyTorch, Streamlit, scikit-learn, Google Colab (for training)
+
+**Dataset:** [HowMannyMore/romanurdu-sentiment-dataset](https://huggingface.co/datasets/HowMannyMore/romanurdu-sentiment-dataset) from HuggingFace
+
+**Results:** 
+| Metric | Score |
+|---|---|
+| Test Accuracy | 80.9% |
+| Macro F1 | 80.9% |
+| **Per-class F1** ||
+| Negative | 0.82 |
+| Neutral | 0.79 |
+| Positive | 0.82 |
+
+**Future Directions:** Add more sentiments. Although the predicted results seem to be correct, it could improve by addings markers for sarcasm, among other things.
 
 ---
 
@@ -55,8 +69,8 @@ I'm interested in applied ML, NLP for low-resource languages, and data-driven st
 
 ## Currently
 
-- Building [Sentiment Classifier for Roman Urdu]
-- Learning/Familiarizing myself with [...]
+- Building [...]
+- Learning/Familiarizing myself with [data storytelling]
 - Open to **internship** opportunities in Data Science / AI
 
 ---
